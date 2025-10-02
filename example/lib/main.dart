@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_vimeo/flutter_vimeo.dart';
 
@@ -43,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     _videoIdController.dispose();
+    flutterVimeoController?.dispose();
     super.dispose();
   }
 
@@ -83,7 +86,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         enableDNT: _enableDNT,
                         onInAppWebViewCreated: (controller) {
                           flutterVimeoController = FlutterVimeoController(
-                              inAppWebViewController: controller);
+                              inAppWebViewController: controller)
+                            ..onVideoStateChanged.listen(
+                              (state) {
+                                log('Video State Changed: $state');
+                              },
+                            );
                         },
                       ),
                     ),

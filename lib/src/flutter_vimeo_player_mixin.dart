@@ -159,9 +159,17 @@ mixin FlutterVimeoPlayerMixin on State<FlutterVimeoPlayer> {
             player.setCurrentTime(${widget.startTime});
             logEventWithDurations('onReady');
           });
-        player.on('play', () => logEventWithDurations('onPlay'));
-        player.on('pause', () => logEventWithDurations('onPause'));
-        player.on('ended', () => logEventWithDurations('onFinish'));
+          
+        player.on('play', () => {
+          window.flutter_inappwebview.callHandler('vimeoState', 'playing');
+        });
+        player.on('pause', () => {
+          window.flutter_inappwebview.callHandler('vimeoState', 'paused');
+        });
+        player.on('ended', () => {
+          window.flutter_inappwebview.callHandler('vimeoState', 'ended');
+        });
+
         player.on('seeked', () => logEventWithDurations('onSeek'));
         player.on('timeupdate', () => logEventWithDurations('onTimeUpdate'));
 

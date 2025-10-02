@@ -1,3 +1,12 @@
+## 1.0.5
+
+- Add video state management with FlutterVimeoVideoState enum (playing, paused, ended)
+- Enhance FlutterVimeoController with state tracking and stream-based state notifications
+- Add play/pause control methods to FlutterVimeoController
+- Implement proper resource disposal in FlutterVimeoController
+- Update iOS deployment target to 13.0 for better compatibility
+- Improve example app with enhanced controller usage and state listening
+
 ## 1.0.4
 
 - Improvments
