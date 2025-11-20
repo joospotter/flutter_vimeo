@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_vimeo/src/flutter_vimeo_video_state.dart';
 
@@ -34,28 +35,33 @@ class FlutterVimeoController {
       _stateController.stream;
 
   void _attachHandlers() {
-    inAppWebViewController?.addJavaScriptHandler(
-      handlerName: 'vimeoState',
-      callback: (args) {
-        final state = args.first;
-        if (state == 'playing') {
-          _emitState(FlutterVimeoVideoState.playing);
-          _isPlaying = true;
-          _isPaused = false;
-          _isEnded = false;
-        } else if (state == 'paused') {
-          _emitState(FlutterVimeoVideoState.paused);
-          _isPlaying = false;
-          _isPaused = true;
-          _isEnded = false;
-        } else if (state == 'ended') {
-          _emitState(FlutterVimeoVideoState.ended);
-          _isPlaying = false;
-          _isPaused = false;
-          _isEnded = true;
-        }
-      },
-    );
+    // addJavaScriptHandler is not implemented on the Flutter web platform for
+    // the webview implementation used by `flutter_inappwebview` and will throw
+    // an UnimplementedError. Guard the call on non-web platforms only.
+    if (!kIsWeb) {
+      inAppWebViewController?.addJavaScriptHandler(
+        handlerName: 'vimeoState',
+        callback: (args) {
+          final state = args.first;
+          if (state == 'playing') {
+            _emitState(FlutterVimeoVideoState.playing);
+            _isPlaying = true;
+            _isPaused = false;
+            _isEnded = false;
+          } else if (state == 'paused') {
+            _emitState(FlutterVimeoVideoState.paused);
+            _isPlaying = false;
+            _isPaused = true;
+            _isEnded = false;
+          } else if (state == 'ended') {
+            _emitState(FlutterVimeoVideoState.ended);
+            _isPlaying = false;
+            _isPaused = false;
+            _isEnded = true;
+          }
+        },
+      );
+    }
   }
 
   ///? Emits the current video state to the stream
@@ -86,7 +92,12 @@ class FlutterVimeoController {
   ///? Disposes the controller and closes the stream.
   void dispose() {
     _stateController.close();
-    inAppWebViewController?.removeJavaScriptHandler(handlerName: 'vimeoState');
+    // Only attempt to remove the JS handler on non-web platforms.
+    if (!kIsWeb) {
+      inAppWebViewController?.removeJavaScriptHandler(
+        handlerName: 'vimeoState',
+      );
+    }
     inAppWebViewController?.stopLoading();
   }
 }

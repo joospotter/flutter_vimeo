@@ -1,3 +1,7 @@
+## 1.0.6
+
+- Fix Web
+
 ## 1.0.5
 
 - Add video state management with FlutterVimeoVideoState enum (playing, paused, ended)
