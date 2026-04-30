@@ -164,6 +164,7 @@ class _FlutterVimeoPlayerState extends State<FlutterVimeoPlayer>
   Widget build(BuildContext context) {
     return InAppWebView(
       initialSettings: InAppWebViewSettings(
+        transparentBackground: true,
         initialScale: widget.initialScale,
         mediaPlaybackRequiresUserGesture:
             widget.mediaPlaybackRequiresUserGesture,
