@@ -39,6 +39,7 @@ class FlutterVimeoPlayer extends StatefulWidget {
     this.mediaPlaybackRequiresUserGesture = false,
     this.allowsInlineMediaPlayback = true,
     this.initialScale,
+    this.quality = '720p'
   });
 
   /// Used to enable or disable logging
@@ -153,6 +154,9 @@ class FlutterVimeoPlayer extends StatefulWidget {
   final bool allowsInlineMediaPlayback;
 
   final int? initialScale;
+
+  //
+  final String quality;
 
   @override
   State<FlutterVimeoPlayer> createState() => _FlutterVimeoPlayerState();

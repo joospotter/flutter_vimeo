@@ -33,7 +33,8 @@ mixin FlutterVimeoPlayerMixin on State<FlutterVimeoPlayer> {
         '&title=${widget.showTitle}'
         '&byline=${widget.showByline}'
         '&controls=${widget.showControls}'
-        '&dnt=${widget.enableDNT}';
+        '&dnt=${widget.enableDNT}'
+        '&quality=${widget.quality}';
   }
 
   /// Handles the console messages from the WebView

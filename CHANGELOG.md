@@ -1,3 +1,7 @@
+## 1.0.8
+
+- Add quality option for player - uses https://help.vimeo.com/hc/en-us/articles/12426487034641-Set-a-default-quality-for-embedded-videos default quality values
+
 ## 1.0.7
 
 - Transparent background
